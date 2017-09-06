@@ -47,7 +47,7 @@ class Starship {
       if (laser.y > 5) {
         laser.renderLaser(canvas, ctx);
       } else {
-        const length = this.lasers.length;
+        let length = this.lasers.length;
         this.lasers = this.lasers.splice(0, idx).concat(
           this.lasers.splice(idx + 1, length)
         );
