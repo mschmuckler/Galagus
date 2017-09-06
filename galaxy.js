@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
       starship.diameter
     );
 
-    if (keysDown[37]) {
+    if (keysDown[37] && starship.x > 10) {
       starship.x -= 3;
-    } else if (keysDown[39]) {
+    } else if (keysDown[39] && starship.x < 440) {
       starship.x += 3;
     }
 
