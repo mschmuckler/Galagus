@@ -29,7 +29,7 @@ class Starship {
   }
 
   shootLaser() {
-    if (this.allowShoot) {
+    if (this.allowShoot && this.lasers.length < 3) {
       if (this.keysDown[32]) {
         const laser = new Laser(this.x, this.y);
         this.lasers.push(laser);
@@ -46,6 +46,11 @@ class Starship {
     this.lasers.forEach( (laser, idx) => {
       if (laser.y > 5) {
         laser.renderLaser(canvas, ctx);
+      } else {
+        const length = this.lasers.length;
+        this.lasers = this.lasers.splice(0, idx).concat(
+          this.lasers.splice(idx + 1, length)
+        );
       }
     });
   }
@@ -54,7 +59,6 @@ class Starship {
     this.moveStarship();
     this.shootLaser();
     this.renderLasers(canvas, ctx);
-
     ctx.drawImage(
       this.img,
       this.x,
