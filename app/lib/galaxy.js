@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       starship.lasers.forEach(laser => {
         if (collisionOccured(enemy, laser, 22, 17, 50)) {
-          enemy.destroy();
+          enemy.destroy(canvas, ctx);
           laser.dissolve();
           killCount += 1;
           score += 10;

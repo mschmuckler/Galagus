@@ -7,16 +7,10 @@ body {
   background-color: black;
 }
 
-/*#enemy1-closed {
+#tester {
+  background-color: black;
   object-fit: none;
   object-position: -2px -177px;
   width: 25px;
   height: 25px;
 }
-
-#enemy1-open {
-  object-fit: none;
-  object-position: -26px -177px;
-  width: 25px;
-  height: 25px;
-}*/

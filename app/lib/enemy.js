@@ -1,4 +1,5 @@
 import Laser from './laser';
+import { explosion } from './utility';
 
 class Enemy {
   constructor(xFormation, yFormation, centerX, centerY, xCurveDirection, yCurveDirection) {
@@ -11,6 +12,8 @@ class Enemy {
     this.lasers = [];
     this.x = null;
     this.y = null;
+    this.xSource = 2;
+    this.ySource = 177;
     this.xSpeed = null;
     this.ySpeed = null;
     this.xF = xFormation;
@@ -109,9 +112,21 @@ class Enemy {
   destroy() {
     this.alive = false;
     setTimeout(() => {
+      this.xSource = 194;
+      this.ySource = 225;
+    }, 0);
+    setTimeout(() => {
+      this.xSource = 219;
+      this.ySource = 225;
+    }, 100);
+    setTimeout(() => {
+      this.xSource = 252;
+      this.ySource = 225;
+    }, 200);
+    setTimeout(() => {
       this.x = -1000;
       this.y = -1000;
-    }, 100);
+    }, 300);
   }
 
   setSpeeds() {
@@ -139,14 +154,14 @@ class Enemy {
 
     this.renderLasers(canvas, ctx);
 
-    let wingSpan = 2;
-    if (this.wingsOpen) {
-      wingSpan = 26;
+    if (this.alive) {
+      this.xSource = (this.wingsOpen) ? 26 : 2;
     }
+
     ctx.drawImage(
       this.img,
-      wingSpan,
-      177,
+      this.xSource,
+      this.ySource,
       25,
       25,
       this.x,
@@ -158,7 +173,3 @@ class Enemy {
 }
 
 export default Enemy;
-
-// object-position: -2px -177px;
-// width: 25px;
-// height: 25px;
