@@ -4,6 +4,7 @@ class Enemy {
     this.destroyImg = document.getElementById("enemy-explosion");
     this.size = 50;
     this.alive = true;
+    this.inFormation = false;
     this.x = null;
     this.y = null;
     this.xSpeed = null;
@@ -53,6 +54,7 @@ class Enemy {
     } else if (this.entryFrameCount < 220) {
       this.reEnterFormation();
     }
+
     ctx.drawImage(
       this.img,
       this.x,

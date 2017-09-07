@@ -64,7 +64,7 @@ class Starship {
       this.x,
       this.y,
       this.size,
-      this.size
+      this.size,
     );
   }
 }
