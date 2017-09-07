@@ -2,7 +2,7 @@ import Laser from './laser';
 import { explosion } from './utility';
 
 class Enemy {
-  constructor(xFormation, yFormation, centerX, centerY, xCurveDirection, yCurveDirection) {
+  constructor(xFormation, yFormation, ySource, centerX, centerY, xCurveDirection, yCurveDirection) {
     this.img = document.getElementById("gal-sprites");
     this.wingsOpen = true;
     this.size = 50;
@@ -13,7 +13,7 @@ class Enemy {
     this.x = null;
     this.y = null;
     this.xSource = 2;
-    this.ySource = 177;
+    this.ySource = ySource;
     this.xSpeed = null;
     this.ySpeed = null;
     this.xF = xFormation;

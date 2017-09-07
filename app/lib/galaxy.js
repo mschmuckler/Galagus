@@ -102,9 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         let enemy;
         if (idx % 2 == 0) {
-          enemy = new Enemy(coords.x, coords.y, 341, centerY, 1, yCurveDirection);
+          enemy = new Enemy(coords.x, coords.y, 177, 341, centerY, 1, yCurveDirection);
         } else {
-          enemy = new Enemy(coords.x, coords.y, 100, centerY, -1, yCurveDirection);
+          enemy = new Enemy(coords.x, coords.y, 154, 100, centerY, -1, yCurveDirection);
         }
         enemies.push(enemy);
       }, (idx * 200));
