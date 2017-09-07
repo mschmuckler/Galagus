@@ -2,8 +2,8 @@ import Laser from './laser';
 
 class Enemy {
   constructor(xFormation, yFormation, centerX, centerY, xCurveDirection, yCurveDirection) {
-    this.img = document.getElementById("enemy1");
-    this.destroyImg = document.getElementById("enemy-explosion");
+    this.img = document.getElementById("gal-sprites");
+    this.wingsOpen = true;
     this.size = 50;
     this.alive = true;
     this.attacking = false;
@@ -26,6 +26,15 @@ class Enemy {
     setTimeout(() => {
       this.attacking = true;
     }, Math.random() * 25000);
+
+    this.toggleWings();
+  }
+
+  toggleWings() {
+    setTimeout(() => {
+      this.wingsOpen = (this.wingsOpen) ? false : true;
+      this.toggleWings();
+    }, 500);
   }
 
   curveFromEntrance() {
@@ -99,7 +108,6 @@ class Enemy {
 
   destroy() {
     this.alive = false;
-    this.img = this.destroyImg;
     setTimeout(() => {
       this.x = -1000;
       this.y = -1000;
@@ -130,14 +138,27 @@ class Enemy {
     }
 
     this.renderLasers(canvas, ctx);
+
+    let wingSpan = 2;
+    if (this.wingsOpen) {
+      wingSpan = 26;
+    }
     ctx.drawImage(
       this.img,
+      wingSpan,
+      177,
+      25,
+      25,
       this.x,
       this.y,
-      this.size,
-      this.size
+      50,
+      50,
     );
   }
 }
 
 export default Enemy;
+
+// object-position: -2px -177px;
+// width: 25px;
+// height: 25px;
