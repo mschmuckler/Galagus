@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx.fillStyle = "white";
   ctx.font = "20pt Courier New";
   const starship = new Starship();
-  let enemies1 = [];
-  let enemies2 = [];
+  let enemies = [];
+  let killCount = 1;
   let score = 0;
   const firstWaveFormation = [
     {"x": 50, "y": 80},
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           enemy = new Enemy(coords.x, coords.y, 100, centerY, -1, yCurveDirection);
         }
-        enemies1.push(enemy);
+        enemies.push(enemy);
       }, (idx * 200));
     });
   }
@@ -95,8 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
       25,
     );
 
+    if (killCount % 49 === 0) {
+      killCount++;
+      queueEnemyWaves();
+    }
     starship.renderStarship(canvas, ctx);
-    enemies1.forEach((enemy, idx) => {
+    enemies.forEach((enemy, idx) => {
       enemy.renderEnemy(canvas, ctx);
 
       if (collisionOccured(enemy, starship, 16, -10, 60)) {
@@ -114,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (collisionOccured(enemy, laser, 22, 17, 50)) {
           enemy.destroy();
           laser.dissolve();
+          killCount += 1;
           score += 10;
         }
       });
