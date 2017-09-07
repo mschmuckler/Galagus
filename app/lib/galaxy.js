@@ -4,6 +4,7 @@ import Enemy from './enemy';
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
+  const shuffle = (arr) => arr.sort(() => (Math.random() - 0.5));
   const starship = new Starship();
   const enemies = [];
   const formationSpaces = [
@@ -35,15 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const createEnemyWave = () => {
-    formationSpaces.forEach((coords, idx) => {
+    shuffle(formationSpaces).forEach((coords, idx) => {
       setTimeout(() => {
-
-
-      let enemy = new Enemy(401, 1, coords.x, coords.y);
-      enemies.push(enemy);
-    }
-      , (idx * 300));
-
+        let enemy;
+        if (idx % 2 == 0) {
+          enemy = new Enemy(coords.x, coords.y, 341, 200, 1);
+        } else {
+          enemy = new Enemy(coords.x, coords.y, 100, 200, -1);
+        }
+        enemies.push(enemy);
+      }, (idx * 200));
     });
   }
 

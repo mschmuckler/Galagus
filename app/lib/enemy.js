@@ -1,39 +1,40 @@
 class Enemy {
-  constructor(x, y, xFormation, yFormation) {
+  constructor(xFormation, yFormation, centerX, centerY, curveDirection) {
     this.img = document.getElementById("enemy1");
     this.size = 50;
-    this.x = x;
-    this.y = y;
+    this.x = null;
+    this.y = null;
+    this.xSpeed = null;
+    this.ySpeed = null;
     this.xF = xFormation;
     this.yF = yFormation;
-    this.xSpeed = ((this.xF - this.x) / 70);
-    this.ySpeed = ((this.yF - this.y) / 70);
-    this.entryCurveCount = 0;
-    this.centerX = 341;
-    this.centerY = 200;
+    this.entryFrameCount = 0;
+    this.centerX = centerX;
+    this.centerY = centerY;
     this.radius = 150;
     this.angle = 0;
+    this.curveDirection = curveDirection;
   }
 
   moveEnemyFromEntrance() {
     this.angle += .02;
-    this.x = this.centerX + Math.cos(this.angle) * this.radius;
+    this.x = this.centerX + ((Math.cos(this.angle) * this.radius) * this.curveDirection);
     this.y = this.centerY + Math.sin(this.angle) * this.radius;
-    this.entryCurveCount++;
+    this.entryFrameCount++;
   }
 
   moveEnemyToFormation() {
     this.x += this.xSpeed;
     this.y += this.ySpeed;
-    this.entryCurveCount++;
+    this.entryFrameCount++;
   }
 
   renderEnemy(canvas, ctx) {
-    if (this.entryCurveCount < 150) {
+    if (this.entryFrameCount < 150) {
       this.moveEnemyFromEntrance();
-      this.xSpeed = ((this.xF - this.x) / 100);
-      this.ySpeed = ((this.yF - this.y) / 100);
-    } else if (this.entryCurveCount < 270) {
+      this.xSpeed = ((this.xF - this.x) / 50);
+      this.ySpeed = ((this.yF - this.y) / 50);
+    } else if (this.entryFrameCount < 200) {
       this.moveEnemyToFormation();
     }
     ctx.drawImage(
