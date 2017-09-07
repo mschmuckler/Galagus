@@ -64,9 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
     {"x": 400, "y": 330},
   ];
 
+  let starfieldColors = ["#31FFFF", "#008A00", "#931C1C", "#8C7D00", "#8B41C1"];
+  starfieldColors = starfieldColors
+    .concat(starfieldColors)
+    .concat(starfieldColors)
+    .concat(starfieldColors)
+    .concat(starfieldColors)
+    .concat(starfieldColors);
   const starfieldPositions = [];
-  for (var i = 0; i < 50; i++) {
-    let radius = Math.random() * 2 + 1;
+  for (var i = 0; i < 60; i++) {
+    let radius = Math.random() * 2 + 1.5;
     starfieldPositions.push({
       "x": canvas.width * Math.random(),
       "y": canvas.height * Math.random(),
@@ -75,8 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const renderStarfield = (canvas, ctx) => {
-    ctx.fillStyle = "white";
-    starfieldPositions.forEach(star => {
+    starfieldPositions.forEach((star, idx) => {
+      ctx.fillStyle = starfieldColors[idx];
+      if (star.y > 600) {
+        star.y = 0;
+      }
+      star.y++;
       ctx.fillRect(
         star.x,
         star.y,
