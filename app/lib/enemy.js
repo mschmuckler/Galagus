@@ -17,7 +17,7 @@ class Enemy {
   }
 
   moveEnemyFromEntrance() {
-    this.angle += .02;
+    this.angle += .015;
     this.x = this.centerX + ((Math.cos(this.angle) * this.radius) * this.curveDirection);
     this.y = this.centerY + Math.sin(this.angle) * this.radius;
     this.entryFrameCount++;
@@ -30,11 +30,11 @@ class Enemy {
   }
 
   renderEnemy(canvas, ctx) {
-    if (this.entryFrameCount < 150) {
+    if (this.entryFrameCount < 170) {
       this.moveEnemyFromEntrance();
       this.xSpeed = ((this.xF - this.x) / 50);
       this.ySpeed = ((this.yF - this.y) / 50);
-    } else if (this.entryFrameCount < 200) {
+    } else if (this.entryFrameCount < 220) {
       this.moveEnemyToFormation();
     }
     ctx.drawImage(
