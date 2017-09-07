@@ -1,3 +1,5 @@
+import Laser from './laser';
+
 class Enemy {
   constructor(xFormation, yFormation, centerX, centerY, xCurveDirection, yCurveDirection) {
     this.img = document.getElementById("enemy1");
@@ -6,6 +8,7 @@ class Enemy {
     this.alive = true;
     this.attacking = false;
     this.horizontalGain = 1;
+    this.lasers = [];
     this.x = null;
     this.y = null;
     this.xSpeed = null;
@@ -44,6 +47,18 @@ class Enemy {
 
   attack() {
     if (this.alive && this.attacking) {
+
+      if (Math.random() < 0.01) {
+        this.lasers.push(new Laser(
+          5,
+          this.x,
+          this.y,
+          (Math.random()) * (Math.round(Math.random()) * 2 - 1),
+          5,
+          document.getElementById("enemy-bullet")
+        ));
+      }
+
       if (this.y > 600) {
         this.y = -10;
       } else {
@@ -67,6 +82,19 @@ class Enemy {
       this.x += this.horizontalGain;
       this.frameCount++;
     }
+  }
+
+  renderLasers(canvas, ctx) {
+    this.lasers.forEach( (laser, idx) => {
+      if (laser.y < 600) {
+        laser.renderLaser(canvas, ctx);
+      } else {
+        let length = this.lasers.length;
+        this.lasers = this.lasers.splice(0, idx).concat(
+          this.lasers.splice(idx + 1, length)
+        );
+      }
+    });
   }
 
   destroy() {
@@ -101,6 +129,7 @@ class Enemy {
       }, Math.random() * 30000);
     }
 
+    this.renderLasers(canvas, ctx);
     ctx.drawImage(
       this.img,
       this.x,

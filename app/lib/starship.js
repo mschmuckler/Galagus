@@ -30,7 +30,7 @@ class Starship {
 
   shootLaser() {
     if (this.keysDown[32] && this.lasers.length < 1) {
-      this.lasers.push(new Laser(this.x, this.y, 0, -10, document.getElementById("laser")));
+      this.lasers.push(new Laser(25, this.x, this.y, 0, -10, document.getElementById("laser")));
     }
   }
 

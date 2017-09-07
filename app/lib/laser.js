@@ -1,11 +1,11 @@
 class Laser {
-  constructor(x, y, xGain, yGain, img) {
+  constructor(size, x, y, xGain, yGain, img) {
     this.img = img;
     this.x = x + 23;
     this.y = y;
     this.xGain = xGain;
     this.yGain = yGain;
-    this.size = 25;
+    this.size = size;
   }
 
   dissolve() {
@@ -22,7 +22,7 @@ class Laser {
       this.x,
       this.y,
       5,
-      this.size
+      this.size,
     );
   }
 }

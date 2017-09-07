@@ -6,7 +6,7 @@ export const collisionOccured = (obj1, obj2, xOffset, yOffset, sizeOffset) => {
   const distance = Math.sqrt(dx * dx + dy * dy);
 
   if (distance < obj1.size + obj2.size - sizeOffset) {
-      return true;
+    return true;
   }
   return false;
 };
