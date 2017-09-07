@@ -5,7 +5,7 @@ class Starship {
     this.img = document.getElementById("starship");
     this.x = 223;
     this.y = 540;
-    this.diameter = 50;
+    this.size = 50;
     this.lasers = [];
     this.allowShoot = true;
     this.keysDown = {};
@@ -63,8 +63,8 @@ class Starship {
       this.img,
       this.x,
       this.y,
-      this.diameter,
-      this.diameter
+      this.size,
+      this.size
     );
   }
 }

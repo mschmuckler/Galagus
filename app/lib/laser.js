@@ -3,7 +3,7 @@ class Laser {
     this.img = document.getElementById("laser");
     this.x = x + 23;
     this.y = y;
-    this.diameter = 25;
+    this.size = 25;
   }
 
   renderLaser(canvas, ctx) {
@@ -14,7 +14,7 @@ class Laser {
       this.x,
       this.y,
       5,
-      this.diameter
+      this.size
     );
   }
 }
