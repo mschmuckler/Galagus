@@ -25,7 +25,7 @@ class Enemy {
 
     setTimeout(() => {
       this.attacking = true;
-    }, Math.random() * 30000);
+    }, Math.random() * 25000);
   }
 
   curveFromEntrance() {
@@ -126,7 +126,7 @@ class Enemy {
       this.frameCount = 170;
       setTimeout(() => {
         this.attacking = true;
-      }, Math.random() * 30000);
+      }, Math.random() * 25000);
     }
 
     this.renderLasers(canvas, ctx);

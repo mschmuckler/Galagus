@@ -5,7 +5,6 @@ import { shuffle, collisionOccured } from './utility';
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "white";
   ctx.font = "20pt Courier New";
   const starship = new Starship();
   let enemies = [];
@@ -65,6 +64,27 @@ document.addEventListener("DOMContentLoaded", () => {
     {"x": 400, "y": 330},
   ];
 
+  const starfieldPositions = [];
+  for (var i = 0; i < 50; i++) {
+    let radius = Math.random() * 2 + 1;
+    starfieldPositions.push({
+      "x": canvas.width * Math.random(),
+      "y": canvas.height * Math.random(),
+      "radius": radius,
+    });
+  }
+
+  const renderStarfield = (canvas, ctx) => {
+    ctx.fillStyle = "white";
+    starfieldPositions.forEach(star => {
+      ctx.fillRect(
+        star.x,
+        star.y,
+        star.radius,
+        star.radius,
+      )
+    });
+  };
 
   const createEnemyWave = (waveFormation, centerY, yCurveDirection) => {
     shuffle(waveFormation).forEach((coords, idx) => {
@@ -88,12 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
   queueEnemyWaves();
   const mainLoop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    ctx.fillStyle = "white";
     ctx.fillText(
       `SCORE: ${score}`,
       310,
       25,
     );
+    renderStarfield(canvas, ctx);
 
     if (killCount % 49 === 0) {
       killCount++;

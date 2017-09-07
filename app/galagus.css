@@ -2,6 +2,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   display: flex;
   align-items: center;
+  background-image: url("https://giphy.com/gifs/P6FGYCH1U6TSw/html5");
 }
 
 #canvas {
