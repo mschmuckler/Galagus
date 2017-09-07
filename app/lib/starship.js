@@ -7,7 +7,6 @@ class Starship {
     this.y = 540;
     this.size = 50;
     this.lasers = [];
-    this.allowShoot = true;
     this.keysDown = {};
 
     document.addEventListener("keydown", (e) => {
@@ -29,16 +28,8 @@ class Starship {
   }
 
   shootLaser() {
-    if (this.allowShoot && this.lasers.length < 2) {
-      if (this.keysDown[32]) {
-        const laser = new Laser(this.x, this.y);
-        this.lasers.push(laser);
-      }
-
-      setTimeout(() => {
-        this.allowShoot = true;
-      }, 300);
-      this.allowShoot = false;
+    if (this.keysDown[32] && this.lasers.length < 1) {
+      this.lasers.push(new Laser(this.x, this.y));
     }
   }
 

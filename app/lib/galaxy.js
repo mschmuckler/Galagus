@@ -5,6 +5,8 @@ import { shuffle, collisionOccured } from './utility';
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "white";
+  ctx.font = "20pt Courier New";
   const starship = new Starship();
   const enemies = [];
   let score = 0;
@@ -77,14 +79,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  createEnemyWave(firstWaveFormation, 200, 1);
-  setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 10000)
+  const queueEnemyWaves = () => {
+    createEnemyWave(firstWaveFormation, 200, 1);
+    setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 15000)
+  }
 
+  queueEnemyWaves();
   const mainLoop = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "white";
-    ctx.font = "20pt Courier New";
     ctx.fillText(
       `SCORE: ${score}`,
       310,
@@ -98,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (collisionOccured(enemy, laser)) {
           enemy.destroy();
           laser.dissolve();
-          score += 100;
+          score += 10;
         }
       });
     });
