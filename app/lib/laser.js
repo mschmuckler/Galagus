@@ -22,7 +22,7 @@ class Laser {
       this.x,
       this.y,
       5,
-      this.size,
+      this.size
     );
   }
 }

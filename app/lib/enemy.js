@@ -50,7 +50,7 @@ class Enemy {
 
       if (Math.random() < 0.01) {
         this.lasers.push(new Laser(
-          5,
+          30,
           this.x,
           this.y,
           (Math.random()) * (Math.round(Math.random()) * 2 - 1),
