@@ -135,25 +135,27 @@ document.addEventListener("DOMContentLoaded", () => {
     enemies.forEach((enemy, idx) => {
       enemy.renderEnemy(canvas, ctx);
 
-      if (collisionOccured(enemy, starship, 16, -10, 60)) {
-        starship.implode();
-      }
-
-      enemy.lasers.forEach(laser => {
-        if (collisionOccured(starship, laser, 22, 17, 50)) {
+      if (enemy.alive) {
+        if (collisionOccured(enemy, starship, 12, -10, 65)) {
           starship.implode();
-          laser.dissolve();
         }
-      });
 
-      starship.lasers.forEach(laser => {
-        if (collisionOccured(enemy, laser, 22, 17, 50)) {
-          enemy.destroy(canvas, ctx);
-          laser.dissolve();
-          killCount += 1;
-          score += 10;
-        }
-      });
+        enemy.lasers.forEach(laser => {
+          if (collisionOccured(starship, laser, 12, 17, 50)) {
+            starship.implode();
+            laser.dissolve();
+          }
+        });
+
+        starship.lasers.forEach(laser => {
+          if (collisionOccured(enemy, laser, 22, 17, 50)) {
+            enemy.destroy(canvas, ctx);
+            laser.dissolve();
+            killCount += 1;
+            score += 10;
+          }
+        });
+      }
     });
 
     requestAnimationFrame(mainLoop);

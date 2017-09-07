@@ -6,6 +6,8 @@ class Starship {
     this.alive = true;
     this.x = 223;
     this.y = 540;
+    this.xSource = 26;
+    this.ySource = 58;
     this.size = 50;
     this.lasers = [];
     this.keysDown = {};
@@ -49,9 +51,13 @@ class Starship {
   implode() {
     this.alive = false;
     setTimeout(() => {
+      this.xSource = 203;
+      this.ySource = 65;
+    }, 0);
+    setTimeout(() => {
       this.x = -1000;
       this.y = -1000;
-    }, 300);
+    }, 200);
   }
 
   renderStarship(canvas, ctx) {
@@ -60,8 +66,8 @@ class Starship {
     this.renderLasers(canvas, ctx);
     ctx.drawImage(
       this.img,
-      26,
-      58,
+      this.xSource,
+      this.ySource,
       25,
       25,
       this.x,
