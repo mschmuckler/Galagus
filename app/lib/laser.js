@@ -1,8 +1,10 @@
 class Laser {
-  constructor(x, y) {
-    this.img = document.getElementById("laser");
+  constructor(x, y, xGain, yGain, img) {
+    this.img = img;
     this.x = x + 23;
     this.y = y;
+    this.xGain = xGain;
+    this.yGain = yGain;
     this.size = 25;
   }
 
@@ -12,7 +14,8 @@ class Laser {
   }
 
   renderLaser(canvas, ctx) {
-    this.y -= 5;
+    this.x += this.xGain;
+    this.y += this.yGain;
 
     ctx.drawImage(
       this.img,

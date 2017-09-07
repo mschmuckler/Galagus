@@ -20,18 +20,17 @@ class Starship {
     }, false);
   }
 
-
   moveStarship() {
-    if (this.keysDown[37] && this.x > 10) {
+    if (this.keysDown[37] && this.x > 10 && this.alive) {
       this.x -= 3;
-    } else if (this.keysDown[39] && this.x < 440) {
+    } else if (this.keysDown[39] && this.x < 440 && this.alive) {
       this.x += 3;
     }
   }
 
   shootLaser() {
     if (this.keysDown[32] && this.lasers.length < 1) {
-      this.lasers.push(new Laser(this.x, this.y));
+      this.lasers.push(new Laser(this.x, this.y, 0, -10, document.getElementById("laser")));
     }
   }
 

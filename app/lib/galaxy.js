@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     enemies.forEach((enemy, idx) => {
       enemy.renderEnemy(canvas, ctx);
 
-      if (collisionOccured(enemy, starship, 22, -10, 40)) {
+      if (collisionOccured(enemy, starship, 16, -10, 60)) {
         starship.implode();
       }
 

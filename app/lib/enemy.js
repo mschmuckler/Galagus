@@ -22,7 +22,7 @@ class Enemy {
 
     setTimeout(() => {
       this.attacking = true;
-    }, Math.random() * 40000);
+    }, Math.random() * 30000);
   }
 
   curveFromEntrance() {
@@ -47,7 +47,7 @@ class Enemy {
       if (this.y > 600) {
         this.y = -10;
       } else {
-        this.y += 4;
+        this.y += 3;
       }
 
       if (this.horizontalGain > 0) {
@@ -89,7 +89,7 @@ class Enemy {
       this.setSpeeds();
     } else if (this.frameCount < 220) {
       this.reEnterFormation();
-    } else if (this.frameCount < 360) {
+    } else if (this.frameCount < 400) {
       this.attack();
       this.setSpeeds();
     } else {
@@ -98,7 +98,7 @@ class Enemy {
       this.frameCount = 170;
       setTimeout(() => {
         this.attacking = true;
-      }, Math.random() * 40000);
+      }, Math.random() * 30000);
     }
 
     ctx.drawImage(
