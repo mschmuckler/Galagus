@@ -3,6 +3,8 @@ import Laser from './laser';
 class Starship {
   constructor() {
     this.img = document.getElementById("starship");
+    this.destroyImg = document.getElementById("enemy-explosion");
+    this.alive = true;
     this.x = 223;
     this.y = 540;
     this.size = 50;
@@ -44,6 +46,15 @@ class Starship {
         );
       }
     });
+  }
+
+  implode() {
+    this.alive = false;
+    this.img = this.destroyImg;
+    setTimeout(() => {
+      this.x = -1000;
+      this.y = -1000;
+    }, 300);
   }
 
   renderStarship(canvas, ctx) {

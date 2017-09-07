@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx.fillStyle = "white";
   ctx.font = "20pt Courier New";
   const starship = new Starship();
-  const enemies = [];
+  let enemies = [];
   let score = 0;
   const firstWaveFormation = [
     {"x": 50, "y": 80},
@@ -95,10 +95,15 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     starship.renderStarship(canvas, ctx);
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy, idx) => {
       enemy.renderEnemy(canvas, ctx);
+
+      if (collisionOccured(enemy, starship, 22, -10, 40)) {
+        starship.implode();
+      }
+
       starship.lasers.forEach(laser => {
-        if (collisionOccured(enemy, laser)) {
+        if (collisionOccured(enemy, laser, 22, 17, 50)) {
           enemy.destroy();
           laser.dissolve();
           score += 10;

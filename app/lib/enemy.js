@@ -78,21 +78,27 @@ class Enemy {
     }, 100);
   }
 
+  setSpeeds() {
+    this.xSpeed = ((this.xF - this.x) / 50);
+    this.ySpeed = ((this.yF - this.y) / 50);
+  }
+
   renderEnemy(canvas, ctx) {
     if (this.frameCount < 170) {
       this.curveFromEntrance();
-      this.xSpeed = ((this.xF - this.x) / 50);
-      this.ySpeed = ((this.yF - this.y) / 50);
+      this.setSpeeds();
     } else if (this.frameCount < 220) {
       this.reEnterFormation();
     } else if (this.frameCount < 360) {
       this.attack();
-      this.xSpeed = ((this.xF - this.x) / 50);
-      this.ySpeed = ((this.yF - this.y) / 50);
+      this.setSpeeds();
     } else {
+      this.reEnterFormation();
       this.attacking = false;
       this.frameCount = 170;
-      this.reEnterFormation();
+      setTimeout(() => {
+        this.attacking = true;
+      }, Math.random() * 40000);
     }
 
     ctx.drawImage(
