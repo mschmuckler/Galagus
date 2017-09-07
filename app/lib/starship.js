@@ -29,7 +29,7 @@ class Starship {
   }
 
   shootLaser() {
-    if (this.allowShoot && this.lasers.length < 3) {
+    if (this.allowShoot && this.lasers.length < 2) {
       if (this.keysDown[32]) {
         const laser = new Laser(this.x, this.y);
         this.lasers.push(laser);

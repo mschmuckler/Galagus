@@ -6,6 +6,11 @@ class Laser {
     this.size = 25;
   }
 
+  dissolve() {
+    this.x = -1000;
+    this.y = -1000;
+  }
+
   renderLaser(canvas, ctx) {
     this.y -= 5;
 
