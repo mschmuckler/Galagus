@@ -39,9 +39,6 @@ class Enemy {
 
   prepareToAttack() {
       setTimeout(() => {
-        if (this.alive) {
-          new Audio("./assets/audio/galaga_dive.wav").play();
-        }
         this.attacking = true;
       }, (Math.random() * 10000) + 5000);
   }
@@ -117,7 +114,6 @@ class Enemy {
 
   destroy() {
     this.alive = false;
-    new Audio("./assets/audio/galaga_destroyed.wav").play();
     setTimeout(() => {
       this.xSource = 194;
       this.ySource = 225;

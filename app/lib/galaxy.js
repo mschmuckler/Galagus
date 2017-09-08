@@ -5,10 +5,9 @@ import { shuffle, collisionOccured } from './utility';
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  ctx.font = "20pt Courier New";
+  ctx.font = "20px 'Press Start 2P'"
 
   const gameOverText = document.getElementById("game-over");
-  const theme = new Audio("./assets/audio/galaga_theme.mp3");
   let starship = new Starship();
   let enemies = [];
   let killCount = 1;
@@ -104,11 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    renderStarfield(canvas, ctx);
-  }, 1000/60);
-
   const createEnemyWave = (waveFormation, centerY, yCurveDirection) => {
     shuffle(waveFormation).forEach((coords, idx) => {
       waveTimers.push(
@@ -128,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const queueEnemyWaves = () => {
     createEnemyWave(firstWaveFormation, 200, 1);
     waveTimers.push(
-      setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 20000)
+      setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 15000)
     );
   }
 
@@ -136,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "white";
     ctx.fillText(
-      `SCORE: ${score}`,
-      310,
+      score,
+      400,
       25,
     );
 
@@ -149,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (killCount % 49 === 0) {
       killCount++;
+      score += 100;
       queueEnemyWaves();
     }
     starship.renderStarship(canvas, ctx);
@@ -200,18 +195,20 @@ document.addEventListener("DOMContentLoaded", () => {
     startBtn.addEventListener("click", () => {
       resetGame();
       cancelAnimationFrame(gameAnimation);
-      theme.currentTime = 0;
-      theme.play();
-      waveTimers.push(
-
-        setTimeout(() => {
-          gameLoop();
-          queueEnemyWaves();
-        }, 6500)
-      );
-
+      gameLoop();
+      queueEnemyWaves();
     });
-  }
+  };
 
   clickToPlay();
+
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    renderStarfield(canvas, ctx);
+    ctx.drawImage(
+      document.getElementById("game-ready"),
+      190,
+      200,
+    );
+  }, 1000/60);
 });
