@@ -78,8 +78,4 @@ class Starship {
   }
 }
 
-// object-position: -26px -58px;
-// width: 25px;
-// height: 25px;
-
 export default Starship;

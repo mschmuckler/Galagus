@@ -7,10 +7,6 @@ body {
   background-color: black;
 }
 
-#tester {
-  background-color: black;
-  object-fit: none;
-  object-position: -2px -177px;
-  width: 25px;
-  height: 25px;
+.hidden {
+  visibility: hidden;
 }
