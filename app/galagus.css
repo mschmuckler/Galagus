@@ -8,14 +8,19 @@ body {
 
 h1 {
   text-align: center;
-  background: -webkit-linear-gradient(#f5ba2c, #e31232, #e31232);
+  background: -webkit-linear-gradient(
+    #f5ba2c,
+    #f5ba2c,
+    #e31232,
+    #e31232,
+    #e31232);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 #canvas {
   background-color: black;
-  border: 5px solid #242424;
+  border: 5px solid #0F0F0F;
 }
 
 #start-btn {

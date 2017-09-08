@@ -6,12 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
   ctx.font = "20pt Courier New";
+  const gameOverText = document.getElementById("game-over");
   let starship = new Starship();
   let enemies = [];
   let killCount = 1;
   let score = 0;
   let waveTimers = [];
   let gameAnimation;
+  let gameOver = false;
   const firstWaveFormation = [
     {"x": 50, "y": 80},
     {"x": 100, "y": 80},
@@ -100,6 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    renderStarfield(canvas, ctx);
+  }, 1000/60);
+
   const createEnemyWave = (waveFormation, centerY, yCurveDirection) => {
     shuffle(waveFormation).forEach((coords, idx) => {
       waveTimers.push(
@@ -132,6 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
       25,
     );
 
+    if (gameOver) {
+      ctx.drawImage(gameOverText, 120, 150);
+    }
+
     renderStarfield(canvas, ctx);
 
     if (killCount % 49 === 0) {
@@ -145,12 +156,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (enemy.alive) {
         if (collisionOccured(enemy, starship, 12, -10, 65)) {
           starship.implode();
+          gameOver = true;
         }
 
         enemy.lasers.forEach(laser => {
           if (collisionOccured(starship, laser, 12, 17, 50)) {
             starship.implode();
             laser.dissolve();
+            gameOver = true;
           }
         });
 
@@ -159,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
             enemy.destroy(canvas, ctx);
             laser.dissolve();
             killCount += 1;
-            score += 10;
+            score += 15;
           }
         });
       }
@@ -168,14 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gameAnimation = requestAnimationFrame(gameLoop);
   };
 
-  setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    renderStarfield(canvas, ctx);
-  }, 1000/60);
-
   const resetGame = () => {
     waveTimers.forEach(wave => clearTimeout(wave));
     waveTimers = [];
+    gameOver = false;
     starship = new Starship();
     enemies = [];
     killCount = 1;

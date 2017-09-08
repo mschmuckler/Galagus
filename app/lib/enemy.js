@@ -26,10 +26,7 @@ class Enemy {
     this.xCurveDirection = xCurveDirection;
     this.yCurveDirection = yCurveDirection;
 
-    setTimeout(() => {
-      this.attacking = true;
-    }, Math.random() * 25000);
-
+    this.prepareToAttack();
     this.toggleWings();
   }
 
@@ -38,6 +35,12 @@ class Enemy {
       this.wingsOpen = (this.wingsOpen) ? false : true;
       this.toggleWings();
     }, 500);
+  }
+
+  prepareToAttack() {
+    setTimeout(() => {
+      this.attacking = true;
+    }, (Math.random() * 10000) + 5000);
   }
 
   curveFromEntrance() {
@@ -147,9 +150,7 @@ class Enemy {
       this.reEnterFormation();
       this.attacking = false;
       this.frameCount = 170;
-      setTimeout(() => {
-        this.attacking = true;
-      }, Math.random() * 25000);
+      this.prepareToAttack();
     }
 
     this.renderLasers(canvas, ctx);
