@@ -35,6 +35,10 @@ class Enemy {
       this.wingsOpen = (this.wingsOpen) ? false : true;
       this.toggleWings();
     }, 500);
+
+    if (this.alive) {
+      this.xSource = (this.wingsOpen) ? 26 : 2;
+    }
   }
 
   prepareToAttack() {
@@ -62,17 +66,8 @@ class Enemy {
 
   attack() {
     if (this.alive && this.attacking) {
-
-      if (Math.random() < 0.01) {
-        this.lasers.push(new Laser(
-          30,
-          this.x,
-          this.y,
-          (Math.random()) * (Math.round(Math.random()) * 2 - 1),
-          5,
-          document.getElementById("enemy-bullet")
-        ));
-      }
+      this.shootLaser();
+      this.oscillate();
 
       if (this.y > 600) {
         this.y = -20;
@@ -80,22 +75,38 @@ class Enemy {
         this.y += 3;
       }
 
-      if (this.horizontalGain > 0) {
-        if (this.horizontalGain > Math.random() * 60) {
-          this.horizontalGain = 0;
-        } else {
-          this.horizontalGain += 0.1;
-        }
-      } else {
-        if (this.horizontalGain < Math.random() * -60) {
-          this.horizontalGain = 1;
-        } else {
-          this.horizontalGain -= 0.1;
-        }
-      }
-
-      this.x += this.horizontalGain;
       this.frameCount++;
+    }
+  }
+
+  oscillate() {
+    if (this.horizontalGain > 0) {
+      if (this.horizontalGain > Math.random() * 60) {
+        this.horizontalGain = 0;
+      } else {
+        this.horizontalGain += 0.1;
+      }
+    } else {
+      if (this.horizontalGain < Math.random() * -60) {
+        this.horizontalGain = 1;
+      } else {
+        this.horizontalGain -= 0.1;
+      }
+    }
+
+    this.x += this.horizontalGain;
+  }
+
+  shootLaser() {
+    if (Math.random() < 0.01) {
+      this.lasers.push(new Laser(
+        30,
+        this.x,
+        this.y,
+        (Math.random()) * (Math.round(Math.random()) * 2 - 1),
+        5,
+        document.getElementById("enemy-bullet")
+      ));
     }
   }
 
@@ -154,10 +165,6 @@ class Enemy {
     }
 
     this.renderLasers(canvas, ctx);
-
-    if (this.alive) {
-      this.xSource = (this.wingsOpen) ? 26 : 2;
-    }
 
     ctx.drawImage(
       this.img,

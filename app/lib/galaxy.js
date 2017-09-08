@@ -15,69 +15,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let waveTimers = [];
   let gameAnimation;
   let gameOver = false;
-  const firstWaveFormation = [
-    {"x": 50, "y": 80},
-    {"x": 100, "y": 80},
-    {"x": 150, "y": 80},
-    {"x": 200, "y": 80},
-    {"x": 250, "y": 80},
-    {"x": 300, "y": 80},
-    {"x": 350, "y": 80},
-    {"x": 400, "y": 80},
-    {"x": 50, "y": 130},
-    {"x": 100, "y": 130},
-    {"x": 150, "y": 130},
-    {"x": 200, "y": 130},
-    {"x": 250, "y": 130},
-    {"x": 300, "y": 130},
-    {"x": 350, "y": 130},
-    {"x": 400, "y": 130},
-    {"x": 50, "y": 180},
-    {"x": 100, "y": 180},
-    {"x": 150, "y": 180},
-    {"x": 200, "y": 180},
-    {"x": 250, "y": 180},
-    {"x": 300, "y": 180},
-    {"x": 350, "y": 180},
-    {"x": 400, "y": 180},
-  ];
 
-  const secondWaveFormation = [
-    {"x": 50, "y": 230},
-    {"x": 100, "y": 230},
-    {"x": 150, "y": 230},
-    {"x": 200, "y": 230},
-    {"x": 250, "y": 230},
-    {"x": 300, "y": 230},
-    {"x": 350, "y": 230},
-    {"x": 400, "y": 230},
-    {"x": 50, "y": 280},
-    {"x": 100, "y": 280},
-    {"x": 150, "y": 280},
-    {"x": 200, "y": 280},
-    {"x": 250, "y": 280},
-    {"x": 300, "y": 280},
-    {"x": 350, "y": 280},
-    {"x": 400, "y": 280},
-    {"x": 50, "y": 330},
-    {"x": 100, "y": 330},
-    {"x": 150, "y": 330},
-    {"x": 200, "y": 330},
-    {"x": 250, "y": 330},
-    {"x": 300, "y": 330},
-    {"x": 350, "y": 330},
-    {"x": 400, "y": 330},
-  ];
+  let firstWaveFormation = [];
+  let secondWaveFormation = [];
+  for (let x = 50; x < 401; x += 50) {
+    for (let y = 80; y < 331; y += 50) {
+      let coords = { "x": x, "y": y };
+      if (y < 181) {
+        firstWaveFormation.push(coords);
+      } else {
+        secondWaveFormation.push(coords);
+      }
+    }
+  }
+
+  let starfieldColors = ["#31FFFF", "#008A00", "#931C1C", "#8B41C1", "#8C7D00"];
+  for (let i = 0; i < 5; i++) {
+    starfieldColors = starfieldColors.concat(starfieldColors);
+  }
 
   const starfieldPositions = [];
-  let starfieldColors = ["#31FFFF", "#008A00", "#931C1C", "#8C7D00", "#8B41C1"];
-  starfieldColors = starfieldColors
-    .concat(starfieldColors)
-    .concat(starfieldColors)
-    .concat(starfieldColors)
-    .concat(starfieldColors)
-    .concat(starfieldColors);
-
   for (var i = 0; i < 60; i++) {
     let radius = Math.random() * 2 + 1.5;
     starfieldPositions.push({
