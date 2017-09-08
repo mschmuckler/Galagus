@@ -1,12 +1,30 @@
 body {
+  background-color: black;
+  font-family: 'Press Start 2P', cursive;
   display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+h1 {
+  text-align: center;
+  background: -webkit-linear-gradient(#f5ba2c, #e31232, #e31232);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #canvas {
   background-color: black;
+  border: 5px solid #242424;
 }
 
-.hidden {
-  visibility: hidden;
+#start-btn {
+  width: 100px;
+  height: 150px;
+  margin-right: 20px;
+}
+
+#start-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }

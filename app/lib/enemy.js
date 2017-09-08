@@ -72,7 +72,7 @@ class Enemy {
       }
 
       if (this.y > 600) {
-        this.y = -10;
+        this.y = -20;
       } else {
         this.y += 3;
       }
