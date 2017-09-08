@@ -29,8 +29,11 @@ class Starship {
     }
   }
 
-  shootLaser() {
+  shootLaser(audioStarshipLaser) {
     if (this.keysDown[32] && this.lasers.length < 1) {
+      if (this.alive) {      
+        new Audio("./assets/audio/laser_widebeam.wav").play();
+      }
       this.lasers.push(new Laser(25, this.x, this.y, 0, -10, document.getElementById("laser")));
     }
   }
@@ -49,6 +52,7 @@ class Starship {
   }
 
   implode() {
+    new Audio("./assets/audio/fighter_destroyed.wav").play();
     this.alive = false;
     setTimeout(() => {
       this.xSource = 203;

@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
   ctx.font = "20pt Courier New";
+
   const gameOverText = document.getElementById("game-over");
+  const theme = new Audio("./assets/audio/galaga_theme.mp3");
   let starship = new Starship();
   let enemies = [];
   let killCount = 1;
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const queueEnemyWaves = () => {
     createEnemyWave(firstWaveFormation, 200, 1);
     waveTimers.push(
-      setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 15000)
+      setTimeout(() => createEnemyWave(secondWaveFormation, 150, -1), 20000)
     );
   }
 
@@ -183,10 +185,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const resetGame = () => {
     waveTimers.forEach(wave => clearTimeout(wave));
+    enemies.forEach(enemy => enemy.alive = false);
+    starship.alive = false;
     waveTimers = [];
-    gameOver = false;
-    starship = new Starship();
     enemies = [];
+    starship = new Starship();
+    gameOver = false;
     killCount = 1;
     score = 0;
   };
@@ -194,10 +198,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const clickToPlay = () => {
     const startBtn = document.getElementById("start-btn");
     startBtn.addEventListener("click", () => {
-      cancelAnimationFrame(gameAnimation);
       resetGame();
-      gameLoop();
-      queueEnemyWaves();
+      cancelAnimationFrame(gameAnimation);
+      theme.currentTime = 0;
+      theme.play();
+      waveTimers.push(
+
+        setTimeout(() => {
+          gameLoop();
+          queueEnemyWaves();
+        }, 6500)
+      );
+
     });
   }
 
