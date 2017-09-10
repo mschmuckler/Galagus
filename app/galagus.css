@@ -19,6 +19,12 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
 #canvas {
   background-color: black;
   border-bottom: 10px solid #2D2D2D;

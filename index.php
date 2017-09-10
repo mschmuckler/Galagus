@@ -1,1 +1,1 @@
-<?php include_once("galagus.html"); ?>
+<?php header( 'Location: /galagus.html' ) ;  ?>
