@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var score = 0;
   var waveTimers = [];
   var gameAnimation = void 0;
-  var gameOver = false;
+  var gameOver = true;
 
   var firstWaveFormation = [];
   var secondWaveFormation = [];
@@ -254,14 +254,18 @@ document.addEventListener("DOMContentLoaded", function () {
       if (enemy.alive) {
         if ((0, _utility.collisionOccured)(enemy, starship, 12, -10, 65)) {
           starship.implode();
-          gameOver = true;
+          setTimeout(function () {
+            gameOver = true;
+          }, 1500);
         }
 
         enemy.lasers.forEach(function (laser) {
           if ((0, _utility.collisionOccured)(starship, laser, 12, 17, 50)) {
             starship.implode();
             laser.dissolve();
-            gameOver = true;
+            setTimeout(function () {
+              gameOver = true;
+            }, 1500);
           }
         });
 
@@ -295,17 +299,30 @@ document.addEventListener("DOMContentLoaded", function () {
     score = 0;
   };
 
+  var startGame = function startGame() {
+    resetGame();
+    cancelAnimationFrame(gameAnimation);
+    gameLoop();
+    queueEnemyWaves();
+  };
+
   var clickToPlay = function clickToPlay() {
     var startBtn = document.getElementById("start-btn");
     startBtn.addEventListener("click", function () {
-      resetGame();
-      cancelAnimationFrame(gameAnimation);
-      gameLoop();
-      queueEnemyWaves();
+      startGame();
+    });
+  };
+
+  var spaceToPlay = function spaceToPlay() {
+    document.addEventListener("keydown", function (e) {
+      if (e.keyCode === 32 && gameOver) {
+        startGame();
+      }
     });
   };
 
   clickToPlay();
+  spaceToPlay();
 
   setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

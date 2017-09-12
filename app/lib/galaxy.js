@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let waveTimers = [];
   let gameAnimation;
-  let gameOver = false;
+  let gameOver = true;
 
   let firstWaveFormation = [];
   let secondWaveFormation = [];
@@ -110,14 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (enemy.alive) {
         if (collisionOccured(enemy, starship, 12, -10, 65)) {
           starship.implode();
-          gameOver = true;
+          setTimeout(() => {
+            gameOver = true;
+          }, 1500);
         }
 
         enemy.lasers.forEach(laser => {
           if (collisionOccured(starship, laser, 12, 17, 50)) {
             starship.implode();
             laser.dissolve();
-            gameOver = true;
+            setTimeout(() => {
+              gameOver = true;
+            }, 1500);
           }
         });
 
@@ -147,17 +151,30 @@ document.addEventListener("DOMContentLoaded", () => {
     score = 0;
   };
 
+  const startGame = () => {
+    resetGame();
+    cancelAnimationFrame(gameAnimation);
+    gameLoop();
+    queueEnemyWaves();
+  };
+
   const clickToPlay = () => {
     const startBtn = document.getElementById("start-btn");
     startBtn.addEventListener("click", () => {
-      resetGame();
-      cancelAnimationFrame(gameAnimation);
-      gameLoop();
-      queueEnemyWaves();
+      startGame();
+    });
+  };
+
+  const spaceToPlay = () => {
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode === 32 && gameOver) {
+        startGame();
+      }
     });
   };
 
   clickToPlay();
+  spaceToPlay();
 
   setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
